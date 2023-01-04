@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 )
 root.render(
   <React.StrictMode>
-   <App message='efn'/>
+   <App />
   </React.StrictMode>
 )
 
