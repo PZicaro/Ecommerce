@@ -1,11 +1,12 @@
 import './categories.style.css'
 import axios from 'axios'
-import env from '../../config/env.config'
 import { useEffect, useState } from 'react'
 import Category from '../../types/category.type'
+import env from '../../config/env.config'
 
 const Categories = () => {
-  const [categories, setCategories] = useState <Category[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+  console.log({ categories })
   const fetchCategories = async () => {
     try {
       const { data } = await axios.get(`${env.apiUrl}/api/category`)

@@ -1,5 +1,5 @@
 const env = {
-  apiUrl: process.env.REACTAPP_API_URL
+  apiUrl: process.env.REACT_APP_API_URL
 }
 
 export default env
