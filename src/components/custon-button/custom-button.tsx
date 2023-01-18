@@ -1,12 +1,18 @@
-import { CustomButtonContainer } from './custom-button.styles'
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, ButtonHTMLAttributes } from 'react'
+import { CustomButtonContainer, IconContainer } from './custom-button.styles'
 
-const CustomButton: FunctionComponent = ({ children }) => {
+// Styles
+
+interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+    startIcon?: React.ReactNode;
+    children: React.ReactNode;
+}
+const CustomButton: FunctionComponent<CustomButtonProps> = ({ children, startIcon, ...rest }) => {
   return (
-    <CustomButtonContainer >
-        {
-    }
-  </CustomButtonContainer>
+    <CustomButtonContainer{...rest} >
+        {startIcon && <IconContainer></IconContainer>}
+      {children}
+    </CustomButtonContainer>
   )
 }
 
