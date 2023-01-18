@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Category from '../../types/category.type'
 import env from '../../config/env.config'
-import CategoryItem from './category-item/category-item.component'
+import CategoryItem from '../category-item/category-item.component'
 import { CategoriesContainer, CategoriesContent } from './categories.style'
 
 const Categories = () => {
