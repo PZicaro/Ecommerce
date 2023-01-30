@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import CustomButton from '../../components/custon-button/custom-button.component'
+import CustomButton from '../../components/custom-button/custom-button.component'
 import Header from '../../components/Header/header.component'
 import {
   LoginContainer,
@@ -8,11 +8,12 @@ import {
   LoginInputContainer,
   LoginSubtitle
 } from './login.style'
-
+import validator from 'validator'
 import { BsGoogle } from 'react-icons/bs'
 import { FiLogIn } from 'react-icons/fi'
 import CusttomInput from '../../components/custtom-input/custom-input.component'
 import { useForm } from 'react-hook-form'
+import InputErrorMessage from '../../components/input-error-message/input-error-message'
 const LoginPage = () => {
   const {
     register,
@@ -36,13 +37,23 @@ const LoginPage = () => {
 
         <LoginInputContainer >
           <p>Email:</p>
-          <CusttomInput hasError={!!errors?.email} placeholder='Digite seu Email' { ...register('email', { required: true }) }/>
+          <CusttomInput hasError={!!errors?.email} placeholder='Digite seu Email' { ...register('email', { required: true, validate: (value) => validator.isEmail(value) }) }/>
         </LoginInputContainer>
-
+        {errors?.email?.type === 'required' && (
+          <InputErrorMessage>É necessário que você logue com seu email</InputErrorMessage>
+        )
+        }
+        {errors?.email?.type === 'validate' && (
+          <InputErrorMessage>insira um email válido</InputErrorMessage>
+        )}
         <LoginInputContainer>
           <p>Senha:</p>
           <CusttomInput hasError={!!errors?.senha}placeholder='Digite sua senha' {...register('senha', { required: true })}/>
         </LoginInputContainer>
+        {errors?.senha?.type === 'required' && (
+          <InputErrorMessage>É necessário que você logue com sua senha :( </InputErrorMessage>
+        )
+        }
 
         <CustomButton startIcon = { <FiLogIn size={18}/> } onClick={ () => handleSubmit(handleSubmitPress)() }>Login</CustomButton>
         </LoginContent>
