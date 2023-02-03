@@ -11,16 +11,20 @@ import {
 import validator from 'validator'
 import { BsGoogle } from 'react-icons/bs'
 import { FiLogIn } from 'react-icons/fi'
-import CusttomInput from '../../components/custtom-input/custom-input.component'
+import CustomInput from '../../components/custom-input/custom-input.component'
 import { useForm } from 'react-hook-form'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
 const LoginPage = () => {
+  interface LoginForm {
+    email: string;
+    senha: string;
+  }
   const {
     register,
     formState: { errors },
     handleSubmit
-  } = useForm()
-  const handleSubmitPress = (data:any) => {
+  } = useForm<LoginForm>()
+  const handleSubmitPress = (data:LoginForm) => {
     console.log({ data })
   }
 
@@ -37,8 +41,7 @@ const LoginPage = () => {
 
         <LoginInputContainer >
           <p>Email:</p>
-          <CusttomInput hasError={!!errors?.email} placeholder='Digite seu Email' { ...register('email', { required: true, validate: (value) => validator.isEmail(value) }) }/>
-        </LoginInputContainer>
+          <CustomInput hasError={!!errors?.email} placeholder='Digite seu Email' { ...register('email', { required: true, validate: (value) => validator.isEmail(value) }) }/>
         {errors?.email?.type === 'required' && (
           <InputErrorMessage>É necessário que você logue com seu email</InputErrorMessage>
         )
@@ -46,14 +49,15 @@ const LoginPage = () => {
         {errors?.email?.type === 'validate' && (
           <InputErrorMessage>insira um email válido</InputErrorMessage>
         )}
+        </LoginInputContainer>
         <LoginInputContainer>
           <p>Senha:</p>
-          <CusttomInput hasError={!!errors?.senha}placeholder='Digite sua senha' {...register('senha', { required: true })}/>
-        </LoginInputContainer>
+          <CustomInput hasError={!!errors?.senha} type={'password'} placeholder='Digite sua senha' {...register('senha', { required: true })}/>
         {errors?.senha?.type === 'required' && (
           <InputErrorMessage>É necessário que você logue com sua senha :( </InputErrorMessage>
         )
         }
+        </LoginInputContainer>
 
         <CustomButton startIcon = { <FiLogIn size={18}/> } onClick={ () => handleSubmit(handleSubmitPress)() }>Login</CustomButton>
         </LoginContent>
