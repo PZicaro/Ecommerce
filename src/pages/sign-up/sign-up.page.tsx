@@ -36,7 +36,9 @@ const SignUpPage = () => {
             <SignUpHeadline>Crie Sua conta</SignUpHeadline>
             <SignUpInputContainer>
                 <p>Nome:</p>
-                <CustomInput hasError={!!errors?.name} {...register('name', { required: true })} placeholder='Digite seu nome'/>
+                <CustomInput hasError={!!errors?.name}
+                {...register('name', { required: true })}
+                placeholder='Digite seu nome'/>
                 {errors?.name?.type === 'required' && (
                   <InputErrorMessage>É necessário que você coloque seu nome</InputErrorMessage>
                 )
@@ -44,14 +46,18 @@ const SignUpPage = () => {
             </SignUpInputContainer>
             <SignUpInputContainer>
                 <p>Sobrenome:</p>
-                <CustomInput hasError={!!errors?.surname}{...register('surname', { required: true })} placeholder='Digite seu sobrenome'/>
+                <CustomInput hasError={!!errors?.surname}
+                {...register('surname', { required: true })}
+                placeholder='Digite seu sobrenome'/>
             {errors?.surname?.type === 'required' && (
               <InputErrorMessageContainer>É necessário que você digite seu sobrenome</InputErrorMessageContainer>
             )}
             </SignUpInputContainer>
             <SignUpInputContainer>
                 <p>Email:</p>
-                <CustomInput hasError={!!errors.email}{...register('email', { required: true, validate: (value) => validator.isEmail(value) })}placeholder='Digite seu email'/>
+                <CustomInput hasError={!!errors.email}
+                {...register('email', { required: true, validate: (value) => validator.isEmail(value) })}
+                placeholder='Digite seu email'/>
                 {errors?.email?.type === 'required' && (
                   <InputErrorMessage>É necessário que você digite seu email</InputErrorMessage>
                 )}
@@ -61,7 +67,9 @@ const SignUpPage = () => {
             </SignUpInputContainer>
             <SignUpInputContainer>
                 <p>Senha:</p>
-                <CustomInput hasError={!!errors.password} {...register('password', { required: true })} placeholder='Digite sua senha' type={'password'}/>
+                <CustomInput hasError={!!errors.password}
+                {...register('password', { required: true })}
+                placeholder='Digite sua senha' type={'password'}/>
            {errors?.password?.type === 'required' && (
             <InputErrorMessage>É necessário que você digite uma senha</InputErrorMessage>
            )}

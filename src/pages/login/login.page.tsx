@@ -41,21 +41,29 @@ const LoginPage = () => {
 
         <LoginInputContainer >
           <p>Email:</p>
-          <CustomInput hasError={!!errors?.email} placeholder='Digite seu Email' { ...register('email', { required: true, validate: (value) => validator.isEmail(value) }) }/>
-        {errors?.email?.type === 'required' && (
+          <CustomInput hasError={!!errors?.email}
+          placeholder='Digite seu Email'
+          { ...register('email', { required: true, validate: (value) => validator.isEmail(value) }) }/>
+        {
+        errors?.email?.type === 'required' && (
           <InputErrorMessage>É necessário que você logue com seu email</InputErrorMessage>
         )
         }
-        {errors?.email?.type === 'validate' && (
+        {
+        errors?.email?.type === 'validate' && (
           <InputErrorMessage>insira um email válido</InputErrorMessage>
         )}
         </LoginInputContainer>
         <LoginInputContainer>
           <p>Senha:</p>
-          <CustomInput hasError={!!errors?.senha} type={'password'} placeholder='Digite sua senha' {...register('senha', { required: true })}/>
-        {errors?.senha?.type === 'required' && (
+          <CustomInput
+          hasError={!!errors?.senha}
+          type={'password'}
+          placeholder='Digite sua senha'
+         {...register('senha', { required: true })}/>
+         {errors?.senha?.type === 'required' && (
           <InputErrorMessage>É necessário que você logue com sua senha :( </InputErrorMessage>
-        )
+         )
         }
         </LoginInputContainer>
 
