@@ -4,22 +4,28 @@ import Category from '../../types/category.type'
 import CategoryItem from '../category-item/category-item.component'
 import { CategoriesContainer, CategoriesContent } from './categories.style'
 import { db } from '../../config/firebase.config'
-import { categoryConverter } from '../../conveters/firebase.converter'
+import { categoryConverter } from '../../conveters/firestore.converters'
 
 const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([])
   const fetchCategories = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'categories').withConverter(categoryConverter))
-      const categoriesFromFirestore:Category[] = []
+      const categoriesFromFirestore: Category[] = []
+
+      const querySnapshot = await getDocs(
+        collection(db, 'categories').withConverter(categoryConverter)
+      )
+
       querySnapshot.forEach((doc) => {
         categoriesFromFirestore.push(doc.data())
       })
+
       setCategories(categoriesFromFirestore)
     } catch (error) {
-
+      console.log({ error })
     }
   }
+
   useEffect(() => {
     fetchCategories()
   }, [])

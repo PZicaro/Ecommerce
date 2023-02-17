@@ -7,6 +7,9 @@ import { useForm } from 'react-hook-form'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
 import { InputErrorMessageContainer } from '../../components/input-error-message/input-error-message.style'
 import validator from 'validator'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth, db } from '../../config/firebase.config'
+import { addDoc, collection } from 'firebase/firestore'
 
 interface SignUpForm{
   name: string;
@@ -23,10 +26,22 @@ const SignUpPage = () => {
     handleSubmit
   } = useForm<SignUpForm>()
   const watchPassword = watch('password')
-  const handleSubmitPress = (data:SignUpForm) => {
-    console.log({ data })
+
+  const handleSubmitPress = async (data:SignUpForm) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(auth, data.email, data.password)
+      console.log(userCredentials)
+      await addDoc(collection(db, 'users'), {
+        id: userCredentials.user.uid,
+        email: userCredentials.user.email,
+        firstName: data.name,
+        surName: data.surname
+
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
-  console.log(errors)
 
   return (
     <>

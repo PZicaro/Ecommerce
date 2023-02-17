@@ -10,9 +10,10 @@ export const categoryConverter = {
     const data = snapshot.data(options)
     return {
       id: data.id,
-      displayName: data.displayName(options),
+      displayName: data.displayName,
       imageUrl: data.imageUrl,
-      name: data.name
+      name: data.name,
+      products: data.product
 
     }
   }
