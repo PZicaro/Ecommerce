@@ -14,20 +14,34 @@ import { FiLogIn } from 'react-icons/fi'
 import CustomInput from '../../components/custom-input/custom-input.component'
 import { useForm } from 'react-hook-form'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
+import { AuthError, AuthErrorCodes, signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../config/firebase.config'
 const LoginPage = () => {
   interface LoginForm {
     email: string;
-    senha: string;
+    password: string;
   }
   const {
     register,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    setError
   } = useForm<LoginForm>()
-  const handleSubmitPress = (data:LoginForm) => {
-    console.log({ data })
-  }
+  const handleSubmitPress = async (data:LoginForm) => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(auth, data.email, data.password)
+      console.log(userCredentials)
+    } catch (error) {
+      const _error = error as AuthError
 
+      if (_error.code === AuthErrorCodes.INVALID_PASSWORD) {
+        return setError('password', { type: 'invalidPassword' })
+      }
+      if (_error.code === AuthErrorCodes.USER_DELETED) {
+        return setError('email', { type: 'notFound' })
+      }
+    }
+  }
   return (
         <>
         <Header/>
@@ -53,16 +67,23 @@ const LoginPage = () => {
         errors?.email?.type === 'validate' && (
           <InputErrorMessage>insira um email válido</InputErrorMessage>
         )}
+       { errors?.email?.type === 'notFound' && (
+          <InputErrorMessage>Ops... aparentemente esse email não existe</InputErrorMessage>
+       )}
         </LoginInputContainer>
         <LoginInputContainer>
           <p>Senha:</p>
           <CustomInput
-          hasError={!!errors?.senha}
+          hasError={!!errors?.password}
           type={'password'}
           placeholder='Digite sua senha'
-         {...register('senha', { required: true })}/>
-         {errors?.senha?.type === 'required' && (
+         {...register('password', { required: true })}/>
+         {errors?.password?.type === 'required' && (
           <InputErrorMessage>É necessário que você logue com sua senha :( </InputErrorMessage>
+         )
+        }
+         {errors?.password?.type === 'invalidPassword' && (
+          <InputErrorMessage>A senha esta incorreta :( </InputErrorMessage>
          )
         }
         </LoginInputContainer>
