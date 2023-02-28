@@ -31,7 +31,6 @@ const SignUpPage = () => {
   const handleSubmitPress = async (data:SignUpForm) => {
     try {
       const userCredentials = await createUserWithEmailAndPassword(auth, data.email, data.password)
-      console.log(userCredentials)
       await addDoc(collection(db, 'users'), {
         id: userCredentials.user.uid,
         email: userCredentials.user.email,
