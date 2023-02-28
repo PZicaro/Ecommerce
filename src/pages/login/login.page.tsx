@@ -14,8 +14,9 @@ import { FiLogIn } from 'react-icons/fi'
 import CustomInput from '../../components/custom-input/custom-input.component'
 import { useForm } from 'react-hook-form'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
-import { AuthError, AuthErrorCodes, signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../config/firebase.config'
+import { AuthError, AuthErrorCodes, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { auth, googleProvider, db } from '../../config/firebase.config'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 const LoginPage = () => {
   interface LoginForm {
     email: string;
@@ -42,6 +43,29 @@ const LoginPage = () => {
       }
     }
   }
+  const handleSignGooglePress = async () => {
+    try {
+      const userCredentials = await signInWithPopup(auth, googleProvider)
+      const querySnapshot = await getDocs(query(collection(db, 'users'), where('id', '==', userCredentials.user.uid)))
+      const user = querySnapshot.docs[0]?.data()
+      console.log({ userCredentials })
+      console.log({ user })
+      if (!user) {
+        const firstName = userCredentials.user.displayName?.split(' ')[0]
+        const surname = userCredentials.user.displayName?.split(' ')[1]
+        await addDoc(collection(db, 'users'), {
+          id: userCredentials.user.uid,
+          email: userCredentials.user.uid,
+          firstName,
+          surname,
+          provider: 'google'
+        })
+      }
+      console.log({ user })
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
         <>
         <Header/>
@@ -50,7 +74,7 @@ const LoginPage = () => {
         <LoginContent>
 
           <LoginHeadline>Entre Com Sua Conta</LoginHeadline>
-          <CustomButton startIcon={ <BsGoogle size={18}/> }>Entrar com o Google</CustomButton>
+          <CustomButton startIcon={ <BsGoogle size={18}/> }onClick={handleSignGooglePress}>Entrar com o Google</CustomButton>
         <LoginSubtitle>ou entre com sua conta</LoginSubtitle>
 
         <LoginInputContainer >
