@@ -17,11 +17,15 @@ import InputErrorMessage from '../../components/input-error-message/input-error-
 import { AuthError, AuthErrorCodes, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider, db } from '../../config/firebase.config'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { UserContext } from '../../context/user.contex'
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 const LoginPage = () => {
   interface LoginForm {
     email: string;
     password: string;
   }
+  const navigate = useNavigate()
   const {
     register,
     formState: { errors },
@@ -43,6 +47,13 @@ const LoginPage = () => {
       }
     }
   }
+  const { isAuthenticated } = useContext(UserContext)
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate('/')
+    }
+  }, [isAuthenticated])
   const handleSignGooglePress = async () => {
     try {
       const userCredentials = await signInWithPopup(auth, googleProvider)
