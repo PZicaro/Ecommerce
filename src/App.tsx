@@ -2,6 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { FunctionComponent, useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { LoadingContainer } from './components/loading/loading.style'
 import { auth, db } from './config/firebase.config'
 import { UserContext } from './context/user.contex'
 import { userConveter } from './conveters/firestore.converters'
@@ -11,12 +12,12 @@ import SignUpPage from './pages/sign-up/sign-up.page'
 
 const App: FunctionComponent = () => {
   const [isInitializing, setisInitializing] = useState(true)
+  console.log(isInitializing)
   const { isAuthenticated, loginUser, logoutUser } = useContext(UserContext)
   console.log(isAuthenticated)
   onAuthStateChanged(auth, async (user) => {
     const isSigningOut = isAuthenticated && !user
-    // eslint-disable-next-line space-before-blocks
-    if (isSigningOut){
+    if (isSigningOut) {
       logoutUser()
       return setisInitializing(false)
     }
@@ -29,7 +30,8 @@ const App: FunctionComponent = () => {
     }
     return setisInitializing(false)
   })
-  if (isInitializing) return null
+  // eslint-disable-next-line no-constant-condition
+  if (isInitializing) return <LoadingContainer/>
   return (
    <BrowserRouter>
     <Routes>
