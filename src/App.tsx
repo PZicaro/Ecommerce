@@ -4,6 +4,7 @@ import { FunctionComponent, useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { auth, db } from './config/firebase.config'
 import { UserContext } from './context/user.contex'
+import { userConveter } from './conveters/firestore.converters'
 import Home from './pages/home/home.page'
 import LoginPage from './pages/login/login.page'
 import SignUpPage from './pages/sign-up/sign-up.page'
@@ -21,9 +22,9 @@ const App: FunctionComponent = () => {
     }
     const isSignIn = !isAuthenticated && user
     if (isSignIn) {
-      const querySnapshot = await getDocs(query(collection(db, 'users'), where('id', '==', user.uid)))
+      const querySnapshot = await getDocs(query(collection(db, 'users').withConverter(userConveter), where('id', '==', user.uid)))
       const userFromFiresStore = querySnapshot.docs[0]?.data()
-      loginUser(userFromFiresStore as any)
+      loginUser(userFromFiresStore)
       return setisInitializing(false)
     }
     return setisInitializing(false)
