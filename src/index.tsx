@@ -4,6 +4,7 @@ import App from './App'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import UserContextProvider from './context/user.contex'
+import { CategoryContextProvider } from './context/category.context'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +12,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <UserContextProvider>
+      <CategoryContextProvider>
       <App />
+      </CategoryContextProvider>
+
     </UserContextProvider>
   </React.StrictMode>
 )
