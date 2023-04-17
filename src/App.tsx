@@ -9,6 +9,7 @@ import { userConveter } from './conveters/firestore.converters'
 import Home from './pages/home/home.page'
 import LoginPage from './pages/login/login.page'
 import SignUpPage from './pages/sign-up/sign-up.page'
+import ExplorePage from './pages/explore/explore.page'
 
 const App: FunctionComponent = () => {
   const [isInitializing, setisInitializing] = useState(true)
@@ -38,6 +39,7 @@ const App: FunctionComponent = () => {
       <Route path='/' element= { <Home/>}/>
       <Route path='/login' element= { <LoginPage/> }/>
       <Route path='/sign-up' element= {<SignUpPage/>}/>
+      <Route path='/explore' element={<ExplorePage/>}/>
     </Routes>
    </BrowserRouter>
   )
