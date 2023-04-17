@@ -1,6 +1,6 @@
 /* eslint-disable no-redeclare */
 import { collection, getDocs } from 'firebase/firestore'
-import React, { createContext, FunctionComponent, useState } from 'react'
+import React, { createContext, FunctionComponent, useContext, useState } from 'react'
 import { db } from '../config/firebase.config'
 import { categoryConverter } from '../conveters/firestore.converters'
 import Category from '../types/category.type'
@@ -12,7 +12,7 @@ interface ICategoryContext {
 interface CategoryContextProvider{
     children: React.ReactNode
 }
-export const CategoryContext = createContext<ICategoryContext>({
+const CategoryContext = createContext<ICategoryContext>({
   categories: [],
   fetchCategories: () => Promise.resolve()
 })
@@ -37,4 +37,8 @@ export const CategoryContextProvider: FunctionComponent<CategoryContextProvider>
     }
   }
   return <CategoryContext.Provider value={{ categories, fetchCategories }}> {children} </CategoryContext.Provider>
+}
+
+export const CategoryContextHook = () => {
+  return useContext(CategoryContext)
 }

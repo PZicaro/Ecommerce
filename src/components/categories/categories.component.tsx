@@ -1,10 +1,10 @@
-import { useContext, useEffect } from 'react'
-import { CategoryContext } from '../../context/category.context'
+import { useEffect } from 'react'
+import { CategoryContextHook } from '../../context/category.context'
 import CategoryItem from '../category-item/category-item.component'
 import { CategoriesContainer, CategoriesContent } from './categories.style'
 
 const Categories = () => {
-  const { categories, fetchCategories } = useContext(CategoryContext)
+  const { categories, fetchCategories } = CategoryContextHook()
   useEffect(() => {
     fetchCategories()
   }, [])

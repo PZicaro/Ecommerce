@@ -1,9 +1,9 @@
-import { FunctionComponent, useContext, useEffect } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { Container } from './category-overview.style'
-import { CategoryContext } from '../../context/category.context'
+import { CategoryContextHook } from '../../context/category.context'
 
 const CategoryOverview: FunctionComponent = () => {
-  const { categories, fetchCategories } = useContext(CategoryContext)
+  const { categories, fetchCategories } = CategoryContextHook()
   useEffect(() => {
     if (categories.length === 0) {
       fetchCategories()
