@@ -13,9 +13,7 @@ import ExplorePage from './pages/explore/explore.page'
 
 const App: FunctionComponent = () => {
   const [isInitializing, setisInitializing] = useState(true)
-  console.log(isInitializing)
   const { isAuthenticated, loginUser, logoutUser } = useContext(UserContext)
-  console.log(isAuthenticated)
   onAuthStateChanged(auth, async (user) => {
     const isSigningOut = isAuthenticated && !user
     if (isSigningOut) {
