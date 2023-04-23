@@ -14,7 +14,7 @@ export const categoryConverter = {
       displayName: data.displayName,
       imageUrl: data.imageUrl,
       name: data.name,
-      products: data.product
+      products: data.products
 
     }
   }
@@ -32,7 +32,7 @@ export const userConveter = {
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
-      provider: data.Provider
+      provider: data.provider
 
     }
   }
