@@ -39,6 +39,6 @@ export const CategoryContextProvider: FunctionComponent<CategoryContextProvider>
   return <CategoryContext.Provider value={{ categories, fetchCategories }}> {children} </CategoryContext.Provider>
 }
 
-export const CategoryContextHook = () => {
+export const useCategory = () => {
   return useContext(CategoryContext)
 }
