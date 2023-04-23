@@ -1,18 +1,18 @@
-import { FunctionComponent, useEffect } from 'react'
-import { Container } from './category-overview.style'
-import { CategoryContextHook } from '../../context/category.context'
+import { FunctionComponent } from 'react'
+import Category from '../../types/category.type'
+import { CategoryContainer, CategoryTitle, ProductsContainer } from './category-overview.style'
+import ProductItem from '../product.item/product.item.component'
+interface CategoryOverviewProps {
+  category: Category
+}
 
-const CategoryOverview: FunctionComponent = () => {
-  const { categories, fetchCategories } = CategoryContextHook()
-  useEffect(() => {
-    if (categories.length === 0) {
-      fetchCategories()
-    }
-  }, [])
+const CategoryOverview: FunctionComponent<CategoryOverviewProps> = ({ category }) => {
   return (
-        <Container>
-            {categories.map((category) => <p key={category.id}>{category.displayName}</p>)}
-        </Container>
+    <CategoryContainer>
+      <CategoryTitle>{category.displayName}</CategoryTitle>
+      <ProductsContainer>{category.products.slice(0, 4).map((product) => <ProductItem key={product.id} product={product}/>)}
+      </ProductsContainer>
+    </CategoryContainer>
   )
 }
 
