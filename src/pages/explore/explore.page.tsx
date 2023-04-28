@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Header from '../../components/Header/header.component'
-import CategoriesOverview from '../../categories-overview/categories-overview.component'
+import CategoriesOverview from '../../components/categories-overview/categories-overview.component'
 
 const ExplorePage: FunctionComponent = () => {
   return (

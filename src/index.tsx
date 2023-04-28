@@ -5,6 +5,7 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import UserContextProvider from './context/user.contex'
 import { CategoryContextProvider } from './context/category.context'
+import CartContextProvider from './context/cart.context'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
     <UserContextProvider>
       <CategoryContextProvider>
-      <App />
+        <CartContextProvider>
+       <App />
+        </CartContextProvider>
       </CategoryContextProvider>
 
     </UserContextProvider>

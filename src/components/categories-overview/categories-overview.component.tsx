@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
-import { useCategory } from '../context/category.context'
+import { useCategory } from '../../context/category.context'
 import { Container } from './categories-overview.style'
-import CategoryOverview from '../components/category-overview/category-overview.component'
+import CategoryOverview from '../category-overview/category-overview.component'
 
 const CategoriesOverview : FunctionComponent = () => {
   const { categories, fetchCategories } = useCategory()

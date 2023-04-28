@@ -6,6 +6,7 @@ import Category from '../../types/category.type'
 import { BiChevronLeft } from 'react-icons/bi'
 import { CategoryTitle, Container, IconContainer, ProductsContainer } from './category-details.style'
 import ProductItem from '../product.item/product.item.component'
+import { useNavigate } from 'react-router-dom'
 // import Category from '../../types/category.type'
 
 interface CategoryDetailsProps {
@@ -13,6 +14,10 @@ interface CategoryDetailsProps {
 }
 
 const CategoryDetails:FunctionComponent<CategoryDetailsProps> = ({ categoryId }) => {
+  const navigate = useNavigate()
+  const handleBackClick = () => {
+    navigate('/')
+  }
   const [category, setCategory] = useState< Category | null >(null)
   useEffect(() => {
     const fetchCategory = async () => {
@@ -28,7 +33,7 @@ const CategoryDetails:FunctionComponent<CategoryDetailsProps> = ({ categoryId })
   }, [])
   return (
     <Container>
-        <IconContainer>
+        <IconContainer onClick={handleBackClick}>
             <BiChevronLeft size={36}/>
         </IconContainer>
         <CategoryTitle>
