@@ -15,7 +15,7 @@ interface IUserContext {
 export const UserContext = createContext <IUserContext>({
   currentUser: null,
   isAuthenticated: false,
-  loginUser: () => {},
+   loginUser: () => {},
   logoutUser: () => {}
 })
 
