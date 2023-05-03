@@ -11,6 +11,7 @@ import LoginPage from './pages/login/login.page'
 import SignUpPage from './pages/sign-up/sign-up.page'
 import ExplorePage from './pages/explore/explore.page'
 import CategoryDetailsPage from './pages/category-details/category-details.page'
+import Cart from './components/cart/cart.component'
 
 const App: FunctionComponent = () => {
   const [isInitializing, setisInitializing] = useState(true)
@@ -41,6 +42,7 @@ const App: FunctionComponent = () => {
       <Route path ='/category/:id' element={ <CategoryDetailsPage/> }/>
       <Route path='/explore' element={<ExplorePage/>}/>
     </Routes>
+    <Cart/>
    </BrowserRouter>
   )
 }

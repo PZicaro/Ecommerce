@@ -15,7 +15,7 @@ root.render(
     <UserContextProvider>
       <CategoryContextProvider>
         <CartContextProvider>
-       <App />
+          <App/>
         </CartContextProvider>
       </CategoryContextProvider>
 

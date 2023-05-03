@@ -5,6 +5,7 @@ import { auth } from '../../config/firebase.config'
 import { HeaderContainer, HeaderItem, HeaderItems, HeaderTitle } from './header.style'
 import { useContext } from 'react'
 import { UserContext } from '../../context/user.contex'
+import useCartContext from '../../context/cart.context'
 const Header = () => {
   const navigate = useNavigate()
   const handleLoginClick = () => {
@@ -20,6 +21,7 @@ const Header = () => {
     navigate('/explore')
   }
   const { isAuthenticated } = useContext(UserContext)
+  const {toggleCart} = useCartContext()
   return (
     <HeaderContainer>
 
@@ -40,7 +42,7 @@ const Header = () => {
 
           )
         }
-        <HeaderItem> <BsCart size={25}/>
+        <HeaderItem onClick={toggleCart}> <BsCart size={25}/>
         <p style={{ marginLeft: 5 }}> 5 </p>
         </HeaderItem>
 
